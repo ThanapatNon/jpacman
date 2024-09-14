@@ -5,6 +5,7 @@ plugins {
     id 'checkstyle'
     id 'pmd'
     id 'com.github.spotbugs' version '1.7.1'
+    id 'project-report'
 }
 
 sourceSets {
