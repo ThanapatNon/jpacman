@@ -2,6 +2,7 @@ package nl.tudelft.jpacman.board;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import nl.tudelft.jpacman.sprite.Sprite;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +33,8 @@ class OccupantTest {
     @Test
     void noStartSquare() {
         // Remove the following placeholder:
-        assertThat(unit).isNotNull();
+//        assertThat(unit).isNotNull();
+        assertThat(unit.hasSquare()).isFalse();
     }
 
     /**
@@ -42,7 +44,25 @@ class OccupantTest {
     @Test
     void testOccupy() {
         // Remove the following placeholder:
-        assertThat(unit).isNotNull();
+//        assertThat(unit).isNotNull();
+        Square s = new Square() {
+            @Override
+            public boolean isAccessibleTo(Unit unit) {
+                return true;
+            }
+
+            @Override
+            public Sprite getSprite() {
+                return null;
+            }
+        };
+        unit.occupy(s);
+
+        // Assert that the unit is now occupying the square
+        assertThat(unit.hasSquare()).isTrue();
+        assertThat(unit.getSquare()).isEqualTo(s);
+
+        assertThat(s.getOccupants()).contains(unit);
     }
 
     /**
@@ -52,6 +72,44 @@ class OccupantTest {
     @Test
     void testReoccupy() {
         // Remove the following placeholder:
-        assertThat(unit).isNotNull();
+//        assertThat(unit).isNotNull();
+        Square first = new Square() {
+            @Override
+            public boolean isAccessibleTo(Unit unit) {
+                return true;
+            }
+
+            @Override
+            public Sprite getSprite() {
+                return null;
+            }
+        };
+
+        Square second = new Square() {
+            @Override
+            public boolean isAccessibleTo(Unit unit) {
+                return true;
+            }
+
+            @Override
+            public Sprite getSprite() {
+                return null;
+            }
+        };
+
+        //Occupy first square
+        unit.occupy(first);
+        // Assert that the unit is occupying the first square
+        assertThat(unit.getSquare()).isEqualTo(first);
+        assertThat(first.getOccupants()).contains(unit);
+
+        // Now occupy the second square
+        unit.occupy(second);
+        // Assert that the unit has moved to the second square
+        assertThat(unit.getSquare()).isEqualTo(second);
+        assertThat(second.getOccupants()).contains(unit);
+
+        // Assert that the first square no longer contains the unit
+        assertThat(first.getOccupants()).doesNotContain(unit);
     }
 }
