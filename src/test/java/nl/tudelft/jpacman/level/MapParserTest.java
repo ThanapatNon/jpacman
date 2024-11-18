@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  */
 @ExtendWith(MockitoExtension.class)
 public class MapParserTest {
+
     @Mock
     private BoardFactory boardFactory;
     @Mock
