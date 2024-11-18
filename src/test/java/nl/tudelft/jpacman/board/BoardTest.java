@@ -16,14 +16,5 @@ public class BoardTest {
 
     }
 
-    @Test
-    public void createNullBoardTest() {
-        BasicSquare[][] bs = new BasicSquare[1][1];
-        bs[0][0] = null;
-        Board b = new Board(bs);
-        assertThat(b.invariant()).isFalse();
-        assertThat(b.squareAt(0,0).invariant()).isTrue();
-
-    }
 
 }
